@@ -1,0 +1,73 @@
+---
+output: github_document
+always_allow_html: true
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# interactive.psplots
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The goal of interactive.psplots is to generate an interactive stacked bar plot
+from a phyloseq object. The plot will show the relative abundances of the most 
+common taxa and allows the user to specify the number of most abundant taxa as
+well as the taxonomic level (e.g. Phylum, Class, Order, etc.). This package may
+be useful if you've recently processed sequence data (e.g. 16S) through a pipeline
+like mothur or dada2 and would like to quickly create a visualization to probe 
+the results and guide further inquiry or visualization direction.
+
+Phyloseq class objects have several components, some of which are optional. This
+package requires your phyloseq to include an OTU table, an assigned taxa table,
+and a data frame with sample data. *IMPORTANT* this package expects a column in
+your sample data to be titled "sample.name". 
+
+The included ps_bar_intr() function requires three inputs (see example below): a phyloseq
+object, the taxonomic level desired for visualization (as a string which *must* match
+the title of one of the columns in your phyloseq's taxa table), and the number of 
+most abundant taxa you would like displayed on the plot. Once the plot generates,
+hovering the cursor over the bars will display the corresponing relative abundance, 
+taxa name, and sample name.
+
+## Installation
+
+You can install the development version of interactive.psplots from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("jlolavesen/interactive.psplots")
+```
+
+## Example
+
+This is a basic example which shows you how to solve a common problem:
+
+```{r example}
+library(interactive.psplots)
+
+## buildng a simple, nonsensical phyloseq object for example purposes
+z <- cbind(c("Archaea","Bacteria"),c("Methyltropha","Bacteriodes"))
+colnames(z) <- c("Phylum", "Class")
+df <- data.frame(c("A", "B"), c("C", "D"))
+colnames(df) <- c("sample.name", "group")
+y <- matrix(1:4,nrow=2)
+ps <- phyloseq::phyloseq(
+  phyloseq::otu_table(y, taxa_are_rows = FALSE),
+  phyloseq::tax_table(z),
+  phyloseq::sample_data(df))
+
+##generating the interactive plot
+ps_bar_intr(ps, "Phylum", 2)
+```
+
+
