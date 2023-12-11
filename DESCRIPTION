@@ -1,12 +1,17 @@
 Package: interactive.psplots
-Title: What the Package Does (One Line, Title Case)
+Title: Make Interactive Barplots From Phyloseq Objects
 Version: 0.0.0.9000
 Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+    person("Jason", "O", , "jlolavesen@gmail.com", role = c("aut", "cre"))
+Description: This package generates interactive stacked bar plots from phyloseq objects. The user specifies the desired taxonomic level as well as the number of OTUs with highest relative abundance for visualization.
+License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
+Imports: 
+    ggplot2,
+    phyloseq,
+    plotly
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
